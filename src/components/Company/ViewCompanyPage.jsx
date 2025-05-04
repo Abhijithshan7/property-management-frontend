@@ -29,9 +29,10 @@ const ViewCompanyPage = () => {
     }, []);
 
     const handleEdit = (company) => {
-        navigate('/edit-company', { state: { company } });
+        navigate(`/edit-company/${company.company_id}`, { state: { company } });
     };
 
+    
     const handleView = (company) => {
         setSelectedCompany(company);
     };
@@ -215,24 +216,24 @@ const CompanyDetail = ({ company, onClose }) => {
           <div className="col-md-6">
             <div className="mb-3">
               <label className="form-label text-muted">Company Name</label>
-              <div className="fw-medium fs-5">{company.name}</div>
+              <div className="fw-medium fs-5">{company?.company_name || 'Not provided'}</div>
             </div>
             
             <div className="mb-3">
               <label className="form-label text-muted">PAN Number</label>
-              <div>{company.pan}</div>
+              <div>{company?.pan_number || 'Not provided'}</div>
             </div>
             
             <div className="mb-3">
               <label className="form-label text-muted">GST Number</label>
-              <div>{company.gst || 'Not provided'}</div>
+              <div>{company?.gst_number || 'Not provided'}</div>
             </div>
           </div>
           
           <div className="col-md-6">
             <div className="mb-3">
               <label className="form-label text-muted">MCA Registration</label>
-              <div>{company.mca || 'Not provided'}</div>
+              <div>{company?.mca_reg_details || 'Not provided'}</div>
             </div>
             
             <div className="mb-3">
@@ -243,14 +244,14 @@ const CompanyDetail = ({ company, onClose }) => {
                     ? 'bg-success' 
                     : 'bg-secondary'
                 }`}>
-                  {company.status === 'active' ? 'Active' : 'Inactive'}
+                  {company?.status === 'active' ? 'Active' : 'Inactive'}
                 </span>
               </div>
             </div>
             
             <div className="mb-3">
               <label className="form-label text-muted">Address</label>
-              <div>{company.address || 'Not provided'}</div>
+              <div>{company?.address || 'Not provided'}</div>
             </div>
           </div>
         </div>

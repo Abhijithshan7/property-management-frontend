@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:5000/api/companies';
+const API_BASE_URL = 'https://property-management-backend-6gqx.onrender.com/api/companies';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://127.0.0.1:5000',
+    baseURL: 'https://property-management-backend-6gqx.onrender.com',
     headers: {
         'Content-Type': 'application/json',
     },
+    
 });
+
+console.log('API Base URL:', process.env.REACT_APP_API_BASE_URL);
 
 // Add request interceptor for better error handling
 axiosInstance.interceptors.response.use(

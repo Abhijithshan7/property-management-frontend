@@ -1,13 +1,16 @@
 
 // CreateCompany.jsx
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { createCompany, updateCompany } from '../../utils/companyService';
 
 const CreateCompany = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const isEditMode = location.pathname.includes('edit');
+
+    const {id} = useParams()
+
+    const isEditMode = id ? true : false;
     const initialCompany = location.state?.company || {
         company_name: '',
         pan_number: '',
@@ -24,11 +27,14 @@ const CreateCompany = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const fieldName = name === 'companyName' ? 'company_name' : 
-                     name === 'panNumber' ? 'pan_number' : 
-                     name === 'mcaNumber' ? 'mca_reg_details' : 
-                     name === 'gstNumber' ? 'gst_number' : 
-                     name === 'description' ? 'notes' : name;
+    const fieldName = {
+      companyName: 'company_name',
+      panNumber: 'pan_number',
+      mcaNumber: 'mca_reg_details',
+      gstNumber: 'gst_number',
+      description: 'notes',
+      address: 'address'
+    }[name] || name;
 
     setCompany(prev => ({
       ...prev,
@@ -104,7 +110,7 @@ const CreateCompany = () => {
       });
 
       if (isEditMode) {
-        const updatedCompany = await updateCompany(location.state.company.id, company);
+        const updatedCompany = await updateCompany(id, company);
         setCompany({
           company_id: updatedCompany.company_id,
           company_name: updatedCompany.company_name,
@@ -175,13 +181,13 @@ const CreateCompany = () => {
                   <label className="form-label">Company Name <span className="text-danger">*</span></label>
                   <input
                     type="text"
-                    name="companyName"
-                    value={company.company_name}
+                    name="company_name"
+                    value={company.company_name || ''}
                     onChange={handleChange}
                     className={`form-control ${errors.company_name ? 'is-invalid' : ''}`}
                     placeholder="Enter company name"
                   />
-                  {errors.companyName && <div className="invalid-feedback">{errors.companyName}</div>}
+                  {errors.company_name && <div className="invalid-feedback">{errors.company_name}</div>}
                 </div>
               </div>
               
@@ -190,13 +196,13 @@ const CreateCompany = () => {
                   <label className="form-label">PAN Number <span className="text-danger">*</span></label>
                   <input
                     type="text"
-                    name="panNumber"
+                    name="pan_number"
                     value={company.pan_number || ''}
                     onChange={handleChange}
                     className={`form-control ${errors.pan_number ? 'is-invalid' : ''}`}
                     placeholder="ABCDE1234F"
                   />
-                  {errors.panNumber && <div className="invalid-feedback">{errors.panNumber}</div>}
+                  {errors.pan_number && <div className="invalid-feedback">{errors.pan_number}</div>}
                 </div>
               </div>
             </div>
@@ -222,13 +228,13 @@ const CreateCompany = () => {
                   <label className="form-label">MCA Registration <span className="text-danger">*</span></label>
                   <input
                     type="text"
-                    name="mcaNumber"
+                    name="mca_reg_details"
                     value={company.mca_reg_details || ''}
                     onChange={handleChange}
                     className={`form-control ${errors.mca_reg_details ? 'is-invalid' : ''}`}
-                    placeholder="MCA registration details"
+                    placeholder="MCA123456789"
                   />
-                  {errors.mcaNumber && <div className="invalid-feedback">{errors.mcaNumber}</div>}
+                  {errors.mca_reg_details && <div className="invalid-feedback">{errors.mca_reg_details}</div>}
                 </div>
               </div>
             </div>
