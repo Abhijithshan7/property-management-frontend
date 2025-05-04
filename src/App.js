@@ -1,24 +1,21 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import CreateCompany from './components/Company Name/CreateCompany';
+import PropertyManagementApp from './components/Company Name/PropertyManagement';
+import ViewCompanyPage from './components/Company Name/ViewCompanyPage';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/view-companies" replace />} />
+        <Route path="/view-companies" element={<ViewCompanyPage />} />
+        <Route path="/create-company" element={<CreateCompany />} />
+        <Route path="/edit-company" element={<CreateCompany />} />
+      </Routes>
+    </Router>
   );
 }
 
