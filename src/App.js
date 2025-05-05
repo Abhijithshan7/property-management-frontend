@@ -2,7 +2,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import CreateCompany from './components/Company/CreateCompany';
-import PropertyManagementApp from './components/Company/PropertyManagement';
 import ViewCompanyPage from './components/Company/ViewCompanyPage';
 
 

@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://property-management-backend-6gqx.onrender.com/api/companies';
-
 const axiosInstance = axios.create({
     baseURL: 'https://property-management-backend-6gqx.onrender.com',
     headers: {
